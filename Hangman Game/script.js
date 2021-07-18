@@ -38,4 +38,44 @@ function displayWord() {
     }
 }
 
+// Update the wrong letters
+function updateWrongLettersEl() {
+    console.log('Update Wrong')
+}
+
+// Show Notification
+function showNotification() {
+    notification.classList.add('show');
+    
+    setTimeout(() => {
+        notification.classList.remove('show');
+    }, 2000);
+}
+
+
+// Event when hit the letter
+// Keydown letter press
+window.addEventListener('keydown', e => {
+    // console.log(e.keyCode); // ? each key has keycode
+    if (e.keyCode >= 65 && e.keyCode <= 90) { // A-z
+        const letter = e.key;
+
+        if (selectedWord.includes(letter)) {
+            if (!correctLetters.includes(letter)) {
+                correctLetters.push(letter); // ! update
+
+                displayWord(); // ! show letter
+            } else {
+                showNotification(); // notify that doesnt include the letter
+            }
+        } else {
+            if (!wrongLetters.includes(letter)) {
+                wrongLetters.push(letter);
+
+                updateWrongLettersEl(); // ! updates showing wrong letters
+            }
+        }
+    }
+});
+
 displayWord(); // after every guess
